@@ -32,10 +32,9 @@ const Homepage = () => {
 
         <div className="col-span-1 row-span-1 border-4 border-smoothGrey bg-transparent rounded-3xl shadow-2xl flex items-center justify-center cursor-pointer">
           <img src={Hamburger} alt="Hamburger Menu" className="" />
-
+        
         </div>
         <div className="bg-cover bg-center col-span-5 row-span-7 rounded-3xl shadow-2xl" style={{ backgroundImage: `url(${smooth})` }}>
-
         </div>
 
         <div className=" bg-smoothWhite col-span-4 row-span-3 rounded-3xl shadow-2xl font-poppins cursor-pointer shadow-pink-100 border-1 border-pink-100">
@@ -64,3 +63,4 @@ const Homepage = () => {
 }
 
 export default Homepage;
+//comment
