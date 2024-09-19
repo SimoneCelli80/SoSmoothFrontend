@@ -3,7 +3,7 @@ import RegistrationForm from "../components/RegistrationForm";
 
 const RegistrationPage = () => {
     return (
-        <div className="bg-smoothGrey h-screen w-screen grid grid-cols-5 grid-rows-1">
+        <div className="bg-smoothGrey h-screen w-screen grid grid-cols-5 grid-rows-1 select-none">
             <div className="col-span-2">
                 <h1 className="text-smoothYellow font-monoton text-2xl pt-4 pl-4">
                     Registration

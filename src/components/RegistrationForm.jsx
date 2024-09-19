@@ -21,7 +21,7 @@ export default function RegistrationForm() {
         setApiError("");
         try {
             const result = await registerUser(dataToSend);
-            console.log("Registration successful:", result);
+            console.log(result);
             setIsSuccess(true);
         } catch (error) {
             setApiError(error.message);
@@ -45,6 +45,7 @@ export default function RegistrationForm() {
                         }
                     })}
                     errorMessage={errors.fullName?.message}
+                    apiError={apiError}
                 />
                 <InputField
                     label="Username"
@@ -58,6 +59,7 @@ export default function RegistrationForm() {
                         }
                     })}
                     errorMessage={errors.userName?.message}
+                    apiError={apiError}
                 />
                 <InputField
                     label="Email"
@@ -71,6 +73,7 @@ export default function RegistrationForm() {
                         }
                     })}
                     errorMessage={errors.email?.message}
+                    apiError={apiError}
                 />
                 <InputField
                     label="Password"
@@ -84,6 +87,7 @@ export default function RegistrationForm() {
                         }
                     })}
                     errorMessage={errors.password?.message}
+                    apiError={apiError}
                 />
                 <InputField
                     label="Confirm Password"
@@ -94,9 +98,15 @@ export default function RegistrationForm() {
                         validate: (value) => value === password || "The passwords don't match. Please check and try again."
                     })}
                     errorMessage={errors.confirmPassword?.message}
+                    apiError={apiError}
                 />
                 <div className="w-full pt-5 text-smoothGrey">
-                    <input type="submit" value="Submit" className="bg-smoothYellow w-min p-2 rounded-xl cursor-pointer" />
+                    <button 
+                        type="submit" 
+                        className="bg-smoothYellow w-min p-2 rounded-xl transition duration-200 ease-in-out active:bg-smoothWhite focus:outline-none focus:ring-2 focus:ring-smoothYellow focus:text-smoothYellow"
+                    >
+                        Register
+                    </button>
                 </div>
             </form>
         </div>

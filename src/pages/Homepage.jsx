@@ -30,14 +30,14 @@ const Homepage = () => {
           </span>
         </a>
 
-        <div className="col-span-1 row-span-1 border-4 border-smoothGrey bg-transparent rounded-3xl shadow-2xl flex items-center justify-center cursor-pointer hover:brightness-90 transition duration-300">
+        <div className="col-span-1 row-span-1 border-1 bg-smoothWhite rounded-3xl shadow-2xl flex items-center justify-center cursor-pointer hover:brightness-90 transition duration-300">
           <img src={Hamburger} alt="Hamburger Menu" className="" />
         
         </div>
         <div className="bg-cover bg-center col-span-5 row-span-7 rounded-3xl shadow-2xl" style={{ backgroundImage: `url(${smooth})` }}>
         </div>
 
-        <div className=" bg-smoothWhite col-span-4 row-span-3 rounded-3xl shadow-2xl font-poppins cursor-pointer shadow-pink-100 border-1 border-pink-100 hover:brightness-90 transition duration-300">
+        <div className=" bg-smoothWhite border-2 col-span-4 row-span-3 rounded-3xl shadow-2xl font-poppins cursor-pointer shadow-pink-100 border-1 border-pink-100 hover:brightness-90 transition duration-300">
           <h2 className="text-3xl text-smoothGrey font-bold pt-6 pl-16">
             Katas
           </h2>
