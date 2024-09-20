@@ -3,16 +3,19 @@ import { useState } from 'react';
 import { registerUser } from "../services/authService";
 import InputField from './InputField';
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ handleSuccess }) {
     const {
         register,
         handleSubmit,
+        reset,
         watch,
+        setError,
+        clearErrors,
         formState: { errors },
     } = useForm({mode: 'onBlur'});
     const [apiError, setApiError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
+    //const [isSuccess, setIsSuccess] = useState(false);
     const password = watch('password', '');
 
     const onSubmit = async (data) => {
@@ -20,11 +23,24 @@ export default function RegistrationForm() {
         setIsLoading(true);
         setApiError("");
         try {
+            console.log(dataToSend);
             const result = await registerUser(dataToSend);
-            console.log(result);
-            setIsSuccess(true);
+            handleSuccess(true);
+            reset();   
         } catch (error) {
-            setApiError(error.message);
+            handleSuccess(false);
+            if (error.status && error.errors) {
+                const { status, errors } = error;
+                Object.keys(errors).forEach((field) => {
+                setError(field, {
+                    field: field,
+                    message: errors[field]
+                    });
+                });               
+            } else {
+                handleSuccess(false);
+                setApiError("An error occured, please try again.");
+            }
         } finally {
             setIsLoading(false);
         }
@@ -45,7 +61,6 @@ export default function RegistrationForm() {
                         }
                     })}
                     errorMessage={errors.fullName?.message}
-                    apiError={apiError}
                 />
                 <InputField
                     label="Username"
@@ -56,10 +71,11 @@ export default function RegistrationForm() {
                         maxLength: {
                             value: 20,
                             message: "Please use max 20 characters."
-                        }
+                        },
+                        onChange: () => clearErrors()
                     })}
-                    errorMessage={errors.userName?.message}
-                    apiError={apiError}
+
+                    errorMessage={errors.username?.message}
                 />
                 <InputField
                     label="Email"
@@ -73,7 +89,6 @@ export default function RegistrationForm() {
                         }
                     })}
                     errorMessage={errors.email?.message}
-                    apiError={apiError}
                 />
                 <InputField
                     label="Password"
@@ -87,7 +102,6 @@ export default function RegistrationForm() {
                         }
                     })}
                     errorMessage={errors.password?.message}
-                    apiError={apiError}
                 />
                 <InputField
                     label="Confirm Password"
@@ -98,12 +112,11 @@ export default function RegistrationForm() {
                         validate: (value) => value === password || "The passwords don't match. Please check and try again."
                     })}
                     errorMessage={errors.confirmPassword?.message}
-                    apiError={apiError}
                 />
                 <div className="w-full pt-5 text-smoothGrey">
                     <button 
                         type="submit" 
-                        className="bg-smoothYellow w-min p-2 rounded-xl transition duration-200 ease-in-out active:bg-smoothWhite focus:outline-none focus:ring-2 focus:ring-smoothYellow focus:text-smoothYellow"
+                        className="bg-smoothYellow w-min p-2 rounded-xl transition duration-200 ease-in-out active:bg-smoothWhite focus:outline-none focus:ring-2 focus:ring-smoothYellow active:text-smoothYellow"
                     >
                         Register
                     </button>

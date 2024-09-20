@@ -9,7 +9,7 @@ const Homepage = () => {
   return (
     <div className="bg-gradient-to-r from-smoothWhite to-smoothB w-screen h-screen flex justify-center items-center select-none">
       <div className="grid grid-cols-12 grid-rows-8 h-full w-full gap-4 p-8"> 
-        <div className="col-span-7 row-span-5 bg-smoothGrey rounded-3xl p-6 shadow-2xl flex flex-col cursor-pointer hover:brightness-110 transition duration-300">
+        <div className="col-span-7 row-span-5 bg-smoothGrey rounded-3xl p-6 shadow-2xl flex flex-col cursor-pointer hover:brightness-125 transition duration-300">
           <h1 className="text-center font-monoton text-6xl text-smoothYellow pt-4">
             SoSmooth<span className="ml-5">OCP</span>
           </h1>
@@ -18,7 +18,7 @@ const Homepage = () => {
           </div>
         </div>
 
-        <a href="/login" className="col-span-2 row-span-1 rounded-3xl flex items-center justify-center bg-smoothGrey text-gray-200 shadow-2xl hover:brightness-110 transition duration-300">
+        <a href="/login" className="col-span-2 row-span-1 rounded-3xl flex items-center justify-center bg-smoothGrey text-gray-200 shadow-2xl hover:brightness-125 transition duration-300">
           <h1 className="text-2xl text-smoothWhite font-bold font-poppins">
             Login
           </h1>
