@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { registerUser } from "../services/authService";
 import InputField from './InputField';
 
-export default function RegistrationForm({ handleSuccess }) {
+const RegistrationForm = ({ handleSuccess }) => {
     const {
         register,
         handleSubmit,
@@ -15,15 +15,21 @@ export default function RegistrationForm({ handleSuccess }) {
     } = useForm({mode: 'onBlur'});
     const [apiError, setApiError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    //const [isSuccess, setIsSuccess] = useState(false);
     const password = watch('password', '');
+
+    const passwordCriteria = {
+        isLongEnough: password.length > 6,
+        hasUpperCase: /[A-Z]/.test(password),
+        hasLowerCase: /[a-z]/.test(password),
+        hasNumber: /\d/.test(password),
+        hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    };
 
     const onSubmit = async (data) => {
         const { confirmPassword, ...dataToSend } = data;
         setIsLoading(true);
         setApiError("");
         try {
-            console.log(dataToSend);
             const result = await registerUser(dataToSend);
             handleSuccess(true);
             reset();   
@@ -39,7 +45,7 @@ export default function RegistrationForm({ handleSuccess }) {
                 });               
             } else {
                 handleSuccess(false);
-                setApiError("An error occured, please try again.");
+                setApiError("An error occurred, please try again.");
             }
         } finally {
             setIsLoading(false);
@@ -48,7 +54,7 @@ export default function RegistrationForm({ handleSuccess }) {
 
     return (
         <div className="flex flex-col font-poppins text-smoothWhite">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4 p-12">
+            <form onSubmit={handleSubmit(onSubmit)} className="grid justify-items-start space-y-4 p-12">
                 <InputField
                     label="Full Name"
                     type="text"
@@ -75,7 +81,7 @@ export default function RegistrationForm({ handleSuccess }) {
                         onChange: () => clearErrors()
                     })}
 
-                    errorMessage={errors.username?.message}
+                    errorMessage={errors.userName?.message}
                 />
                 <InputField
                     label="Email"
@@ -98,9 +104,18 @@ export default function RegistrationForm({ handleSuccess }) {
                         required: "Please enter a password.",
                         pattern: {
                             value: /^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{6,}$/,
-                            message: "Password must contain at least 6 characters, one uppercase letter, one number, and one special character."
-                        }
-                    })}
+                            message: `Password must contain at least ${
+                                passwordCriteria.isLongEnough ? "" : "6 characters, " 
+                            }${
+                                passwordCriteria.hasUpperCase ? "" : "one uppercase letter, "
+                            }${
+                                passwordCriteria.hasLowerCase ? "" : "one lowercase letter, "
+                            }${
+                                passwordCriteria.hasNumber ? "" : "one number, "
+                            }${
+                                passwordCriteria.hasSpecialChar ? "" : "one special character"}.` 
+                            }
+                        })}
                     errorMessage={errors.password?.message}
                 />
                 <InputField
@@ -125,3 +140,5 @@ export default function RegistrationForm({ handleSuccess }) {
         </div>
     );
 }
+
+export default RegistrationForm;

@@ -3,9 +3,13 @@ import Description from "../components/HomepageOcpInfo";
 import smooth from '../assets/smooth.webp';
 import Hamburger from "../assets/icons/hamburger.svg";
 import KanjiSequence from "../components/KanjiSequence";
+import useAuth from '../hooks/useAuth';
 
 const Homepage = () => {
   
+  const { authState } = useAuth();
+
+
   return (
     <div className="bg-gradient-to-r from-smoothWhite to-smoothB w-screen h-screen flex justify-center items-center select-none">
       <div className="grid grid-cols-12 grid-rows-8 h-full w-full gap-4 p-8"> 
@@ -20,13 +24,13 @@ const Homepage = () => {
 
         <a href="/login" className="col-span-2 row-span-1 rounded-3xl flex items-center justify-center bg-smoothGrey text-gray-200 shadow-2xl hover:brightness-125 transition duration-300">
           <h1 className="text-2xl text-smoothWhite font-bold font-poppins">
-            Login
+            {authState.isAuthenticated ? "Logout" : "Login"}
           </h1>
         </a>
 
-        <a href="/registration" className="col-span-2 row-span-1 rounded-3xl bg-smoothYellow rounded-5xl flex items-center justify-center shadow-2xl hover:brightness-110 transition duration-300">
+        <a href={authState.isAuthenticated ? "/dashboard" : "/registration"} className="col-span-2 row-span-1 rounded-3xl bg-smoothYellow rounded-5xl flex items-center justify-center shadow-2xl hover:brightness-110 transition duration-300">
           <span className="text-smoothGrey text-2xl font-bold font-poppins">
-            Registration
+          {authState.isAuthenticated ? "Dashboard" : "Registration"}
           </span>
         </a>
 

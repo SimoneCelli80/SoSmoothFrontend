@@ -1,6 +1,6 @@
 import React from 'react';
 
-function KanjiSequence() {
+const KanjiSequence = () => {
   const elements = ['一', '二', '三', '四'];
 
   return (
