@@ -4,11 +4,12 @@ import smooth from '../assets/smooth.webp';
 import Hamburger from "../assets/icons/hamburger.svg";
 import KanjiSequence from "../components/KanjiSequence";
 import useAuth from '../hooks/useAuth';
+import { Link } from "react-router-dom";
+import { logoutUser } from "../services/authService";
 
 const Homepage = () => {
   
   const { authState } = useAuth();
-
 
   return (
     <div className="bg-gradient-to-r from-smoothWhite to-smoothB w-screen h-screen flex justify-center items-center select-none">
@@ -21,18 +22,18 @@ const Homepage = () => {
             <Description />
           </div>
         </div>
-
-        <a href="/login" className="col-span-2 row-span-1 rounded-3xl flex items-center justify-center bg-smoothGrey text-gray-200 shadow-2xl hover:brightness-125 transition duration-300">
+        {/*I could implement a useEffect in login to logout if the user is already authenticated*/}
+        <Link to="/login" /*onClick={authState.isAuthenticated ? logoutUser() : null} */className="col-span-2 row-span-1 rounded-3xl flex items-center justify-center bg-smoothGrey text-gray-200 shadow-2xl hover:brightness-125 transition duration-300">
           <h1 className="text-2xl text-smoothWhite font-bold font-poppins">
             {authState.isAuthenticated ? "Logout" : "Login"}
           </h1>
-        </a>
+        </Link>
 
-        <a href={authState.isAuthenticated ? "/dashboard" : "/registration"} className="col-span-2 row-span-1 rounded-3xl bg-smoothYellow rounded-5xl flex items-center justify-center shadow-2xl hover:brightness-110 transition duration-300">
+        <Link to={authState.isAuthenticated ? "/dashboard" : "/registration"} className="col-span-2 row-span-1 rounded-3xl bg-smoothYellow rounded-5xl flex items-center justify-center shadow-2xl hover:brightness-110 transition duration-300">
           <span className="text-smoothGrey text-2xl font-bold font-poppins">
           {authState.isAuthenticated ? "Dashboard" : "Registration"}
           </span>
-        </a>
+        </Link>
 
         <div className="col-span-1 row-span-1 border-1 bg-smoothWhite rounded-3xl shadow-2xl flex items-center justify-center cursor-pointer hover:brightness-90 transition duration-300">
           <img src={Hamburger} alt="Hamburger Menu" className="" />

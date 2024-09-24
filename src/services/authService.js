@@ -16,27 +16,6 @@ export const registerUser = async (userData) => {
     }
 }
 
-/*export const loginUser = async (loginData) => {
-    try {
-        const response = await fetch('http://localhost:8080/api/auth/loginUser', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(loginData)
-        });
-        const data = await response.json();
-        if(!response.ok) {
-            const error = new ValidationError(data.error || "Login failed.", data.status, data.errors);
-            throw error;
-        }
-        return data;
-    } catch (error) {
-        throw error;
-    }
-}*/
-
 export const logoutUser = async () => {
     try {
         const response = await fetch('http://localhost:8080/api/auth/logout', {

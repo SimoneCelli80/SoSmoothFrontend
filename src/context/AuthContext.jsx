@@ -24,17 +24,23 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password })
             });
             const data = await handleErrors(response);
+            console.log("Login response", data.userName, data.accessToken);
             setAuthState({
                 isAuthenticated: true,
-                user: data.user,
+                user: data.userName,
                 accessToken: data.accessToken
             });
+            console.log("Authstate dopo il set", authState);
         } catch (error) {
             throw error;
         }
     }
 
-    const logout = useCallback(async () => {
+    useEffect(() => {
+        console.log('Auth state changed:', authState);  // Verifica il nuovo stato dopo che viene aggiornato
+    }, [authState]);
+
+    const logout = async () => {
         try {
             await logoutUser();
             setAuthState({
@@ -45,9 +51,9 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('An error occured during the logout: ', error);
         }
-    }, []);
+    };
 
-    const refreshToken = useCallback(async () => {
+    const refreshToken = async () => {
         try {
             const data = await refreshAccessToken();
             setAuthState(prevState => ({
@@ -61,7 +67,7 @@ export const AuthProvider = ({ children }) => {
             await logout();
             throw error;
         }
-    }, [logout]);
+    };
 
     useEffect(() => {
         const initializeAuth = async () => {
@@ -72,9 +78,9 @@ export const AuthProvider = ({ children }) => {
             }
         };
         initializeAuth();
-    }, [refreshToken]);
+    }, []);
 
-    const fetchWithAuth = useCallback(async (url, options = {}) => {
+    /*const fetchWithAuth = useCallback(async (url, options = {}) => {
         const headers = {
             ...options.headers,
             'Content-Type': 'application/json',
@@ -107,10 +113,10 @@ export const AuthProvider = ({ children }) => {
             }
         }
         return response;
-    }, [authState.accessToken, refreshToken, logout]);
+    }, [authState.accessToken, refreshToken, logout]);*/
 
     return (
-        <AuthContext.Provider value={{ authState, login, logout, fetchWithAuth }}>
+        <AuthContext.Provider value={{ authState, login, logout/*, fetchWithAuth*/ }}>
             {children}
         </AuthContext.Provider>
     );
