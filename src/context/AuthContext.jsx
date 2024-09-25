@@ -1,6 +1,7 @@
-import { createContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { refreshAccessToken, logoutUser } from '../services/authService';
 import { handleErrors } from '../utils/apiUtils';
+import isTokenNearExpiry from '../utils/isTokenNearExpiry';
 
 export const AuthContext = createContext();
 
@@ -12,8 +13,11 @@ export const AuthProvider = ({ children }) => {
         accessToken: null
     });
 
+    const [isLoading, setIsLoading] = useState(true);
+
 
     const login = async(email, password) => {
+        setIsLoading(true);
         try {
             const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: "POST",
@@ -24,23 +28,25 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password })
             });
             const data = await handleErrors(response);
-            console.log("Login response", data.userName, data.accessToken);
             setAuthState({
                 isAuthenticated: true,
                 user: data.userName,
                 accessToken: data.accessToken
             });
-            console.log("Authstate dopo il set", authState);
         } catch (error) {
             throw error;
+        } finally {
+            setIsLoading(false);
         }
     }
+    
 
     useEffect(() => {
         console.log('Auth state changed:', authState);  // Verifica il nuovo stato dopo che viene aggiornato
     }, [authState]);
 
     const logout = async () => {
+        setIsLoading(true);
         try {
             await logoutUser();
             setAuthState({
@@ -50,6 +56,8 @@ export const AuthProvider = ({ children }) => {
             });
         } catch (error) {
             console.error('An error occured during the logout: ', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -66,12 +74,15 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             await logout();
             throw error;
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
         const initializeAuth = async () => {
             try {
+                if(authState.accessToken || isTokenNearExpiry)
                 await refreshToken();
             } catch (error) {
                 console.log('User not authanticated.');

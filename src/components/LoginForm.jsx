@@ -13,9 +13,7 @@ const LoginForm = () => {
     const {
         register,
         handleSubmit,
-        reset,
-        setError,
-        formState: { errors },
+        reset
     } = useForm({mode: 'onSubmit'});
 
     const onSubmit = async (data) => {
@@ -23,18 +21,20 @@ const LoginForm = () => {
         setApiError(null);
         try {
            await login(data.email, data.password);
+           console.log("Molto male");
            reset();
            navigate('/');
         } catch (error) {
             if (error.name === "ValidationError" ) {
-                const { errors } = error;
+                /*const { errors } = error;
                 Object.keys(errors).forEach((field) => {
                     setError(field, {
                         //type: manual,?
                         field: field,
                         message: "Please enter a valid email-password combination."
                     });
-                });
+                });*/
+                setApiError("Please enter a valid email-password combination.");
             } else {
                 setApiError("An error occurred, please try again.");
             }
@@ -53,7 +53,7 @@ const LoginForm = () => {
                 register={register("email", {
                     required: "Please enter your email.",
                 })}
-                errorMessage={errors.email?.message}
+                //errorMessage={errors.email?.message}
                 position={"justify-center"}
             />
             <InputField
@@ -63,7 +63,7 @@ const LoginForm = () => {
                 register={register("password", {
                     required: "Please enter your password."
                     })}
-                errorMessage={errors.password?.message}
+                //errorMessage={errors.password?.message}
                 position="justify-center"
             />
             {apiError ? <div className="text-red-400">{apiError}</div> : <p>&nbsp;</p>}
@@ -75,6 +75,7 @@ const LoginForm = () => {
                     Login
                 </button>
             </div>
+            {apiError ? <div className="text-smoothWhite">Password forgotten?</div> : <p>&nbsp;</p>}
         </form>
         
     );
