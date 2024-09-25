@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import useAuth from '../hooks/useAuth';
-import smooth from '../assets/smooth.webp';
 import Login from "../components/homepage/Login";
 import Logout from "../components/homepage/Logout";
 import Main from "../components/homepage/Main";
@@ -25,7 +24,6 @@ const Homepage = () => {
     <div className="bg-gradient-to-r from-smoothWhite to-smoothB w-screen h-screen flex justify-center items-center select-none">
       <div className="grid grid-cols-12 grid-rows-8 h-full w-full gap-4 p-8"> 
         <Main />
-  
         {isAuthenticated ?
           <Logout />
         :
