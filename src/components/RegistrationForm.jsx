@@ -131,9 +131,14 @@ const RegistrationForm = ({ handleSuccess }) => {
                 <div className="w-full pt-5 text-smoothGrey">
                     <button 
                         type="submit" 
-                        className="bg-smoothYellow w-min p-2 rounded-xl transition duration-200 ease-in-out active:bg-smoothWhite focus:outline-none focus:ring-2 focus:ring-smoothYellow active:text-smoothYellow"
+                        className={`bg-smoothYellow w-20 p-2 rounded-xl transition duration-200 ease-in-out active:bg-smoothWhite focus:outline-none focus:ring-2 focus:ring-smoothYellow active:text-smoothYellow grid justify-center ${isLoading ? 'opacity-50 cursor-not-allowed' : ''} `} 
+                        disabled={`${isLoading ? false : false}`}
                     >
-                        Register
+                        {isLoading ? 
+                            <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-smoothGrey"></div>
+                            :
+                            <p>Register</p>
+                        }
                     </button>
                 </div>
             </form>
