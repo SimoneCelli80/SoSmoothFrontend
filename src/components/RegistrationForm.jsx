@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { registerUser } from "../services/authService";
 import InputField from './InputField';
 
-const RegistrationForm = ({ handleSuccess }) => {
+const RegistrationForm = ({ handleFeedbackMessage }) => {
     const {
         register,
         handleSubmit,
@@ -31,21 +31,21 @@ const RegistrationForm = ({ handleSuccess }) => {
         setApiError("");
         try {
             const result = await registerUser(dataToSend);
-            handleSuccess(true);
             reset();   
+            handleFeedbackMessage(result.message);
         } catch (error) {
-            handleSuccess(false);
             if (error.status && error.errors) {
                 const { status, errors } = error;
                 Object.keys(errors).forEach((field) => {
-                setError(field, {
-                    field: field,
-                    message: errors[field]
+                    setError(field, {
+                        field: field,
+                        message: errors[field]
                     });
                 });               
+                handleFeedbackMessage(error.message);
             } else {
-                handleSuccess(false);
                 setApiError("An error occurred, please try again.");
+                handleFeedbackMessage(apiError);
             }
         } finally {
             setIsLoading(false);
@@ -132,7 +132,6 @@ const RegistrationForm = ({ handleSuccess }) => {
                     <button 
                         type="submit" 
                         className={`bg-smoothYellow w-20 p-2 rounded-xl transition duration-200 ease-in-out active:bg-smoothWhite focus:outline-none focus:ring-2 focus:ring-smoothYellow active:text-smoothYellow grid justify-center ${isLoading ? 'opacity-50 cursor-not-allowed' : ''} `} 
-                        disabled={`${isLoading ? false : false}`}
                     >
                         {isLoading ? 
                             <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-smoothGrey"></div>
