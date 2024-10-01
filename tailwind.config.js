@@ -26,6 +26,10 @@ module.exports = {
           '50%, 100%': { opacity: '0' },
         },
       },
+      padding: {
+        '9.8rem': '9.8rem',  
+        '13.5rem': '13.5rem',      
+      },
     },
   },
   plugins: [],

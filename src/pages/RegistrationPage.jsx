@@ -18,7 +18,7 @@ const RegistrationPage = () => {
 
     return (
         <div>
-            {feedbackMessage == "" ?
+            {feedbackMessage === "" ?
                 <div className="bg-smoothGrey h-screen w-screen grid grid-cols-5 grid-rows-1 select-none">
                     <div className="col-span-2">
                         <h1 className="text-smoothYellow font-monoton text-2xl pt-4 pl-4">
@@ -44,8 +44,8 @@ const RegistrationPage = () => {
                 </div>    
             :
                 <div className="bg-smoothGrey h-screen w-screen grid grid-cols-5 grid-rows-1 select-none">
-                    <div className="col-span-5 text-smoothWhite text-4xl font-poppins text-center self-center">
-                        <p>
+                    <div className="col-span-3 col-start-2 text-smoothWhite text-3xl font-poppins text-center self-center">
+                        <p className=""> 
                             {feedbackMessage}
                         </p>
                         <button onClick={handleButtonClick} className="w-40 h-20 bg-smoothWhite rounded-3xl text-smoothGrey mt-20 active:bg-smoothGrey focus:outline-none active:ring-2 active:ring-smoothWhite active:text-smoothWhite self-end">

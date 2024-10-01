@@ -7,11 +7,12 @@ import Katas from "../components/homepage/Katas";
 import Flashcards from "../components/homepage/Flashcards";
 import HamburgerMenu from  "../components/homepage/HamburgerMenu";
 import RegistrationAndDashboard from "../components/homepage/RegistrationAndDashboard";
-import IamgeContainer from "../components/homepage/ImageContainer";
+import ImageContainer from "../components/homepage/ImageContainer";
 
 const Homepage = () => {
   
   const { authState: { isAuthenticated } } = useAuth();
+  
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -21,7 +22,7 @@ const Homepage = () => {
 
   
   return (
-    <div className="bg-gradient-to-r from-smoothWhite to-smoothB w-screen h-screen flex justify-center items-center select-none">
+    <div className=" bg-smoothWhite  w-screen h-screen flex justify-center items-center select-none">
       <div className="grid grid-cols-12 grid-rows-8 h-full w-full gap-4 p-8"> 
         <Main />
         {isAuthenticated ?
@@ -31,7 +32,7 @@ const Homepage = () => {
         }
         <RegistrationAndDashboard />
         < HamburgerMenu />
-        <IamgeContainer />
+        <ImageContainer />
         <Katas />
         <Flashcards />
       </div>

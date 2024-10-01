@@ -35,12 +35,12 @@ const ConfirmEmail = () => {
     },[])
 
     return(
-        <div>
+        <div className="w-screen h-screen bg-smoothGrey grid grid-cols-1 grid-rows-1 text-7xl text-smoothWhite font-monoton items-center justify-items-center"> 
             {isLoading ?
-                <p>Verifying your email...</p>
+                <p className="font-poppins">Verifying your email...</p>
             :
             isSuccess ?
-                <p>Bravo hai confermato la email!!</p>
+                <p>Email confirmed!</p>
             :
                 <p>{errorMessage}</p>
             }
