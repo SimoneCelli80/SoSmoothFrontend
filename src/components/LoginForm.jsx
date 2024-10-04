@@ -21,7 +21,6 @@ const LoginForm = () => {
         setApiError(null);
         try {
            await login(data.email, data.password);
-           console.log("Molto male");
            reset();
            navigate('/');
         } catch (error) {

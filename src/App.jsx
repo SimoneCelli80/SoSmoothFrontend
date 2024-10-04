@@ -73,15 +73,8 @@ function App() {
               } 
             />
             <Route path="/auth/confirm" element={
-              <motion.div
-                initial="initial"
-                animate="in"
-                exit="out"
-                variants={pageVariants}
-                transition={pageTransition}
-              >
+              
                 <ConfirmEmail />
-              </motion.div>
               } 
             /> 
             <Route path="/katas" element={

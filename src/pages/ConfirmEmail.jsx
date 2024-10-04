@@ -9,6 +9,8 @@ const ConfirmEmail = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [ count, setCount ] = useState(0);
+    
 
     useEffect(() => {
         if(token) {
@@ -35,7 +37,8 @@ const ConfirmEmail = () => {
     },[])
 
     return(
-        <div className="w-screen h-screen bg-smoothGrey grid grid-cols-1 grid-rows-1 text-7xl text-smoothWhite font-monoton items-center justify-items-center"> 
+        <div className="w-screen h-screen bg-smoothGrey grid grid-cols-1 grid-rows-1 text-7xl text-smoothWhite font-monoton items-center justify-items-center">
+            ciao 
             {isLoading ?
                 <p className="font-poppins">Verifying your email...</p>
             :

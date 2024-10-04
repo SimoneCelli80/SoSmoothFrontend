@@ -43,3 +43,16 @@ export const refreshAccessToken = async () => {
         throw error;
     }
 }
+
+export const requestNewPassword = async () => {
+    try {
+        const response = await fetch('http://localhost:8080/api/auth/change-password', {
+            method: "POST",
+            credentials: "include",
+        });
+        const data = await handleErrors(response);
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}

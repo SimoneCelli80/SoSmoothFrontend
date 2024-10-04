@@ -32,7 +32,7 @@ const RegistrationForm = ({ handleFeedbackMessage }) => {
         try {
             const result = await registerUser(dataToSend);
             reset();   
-            handleFeedbackMessage(result.message);
+            handleFeedbackMessage(true, true, result.message);
         } catch (error) {
             if (error.status && error.errors) {
                 const { status, errors } = error;
@@ -41,11 +41,11 @@ const RegistrationForm = ({ handleFeedbackMessage }) => {
                         field: field,
                         message: errors[field]
                     });
-                });               
-                handleFeedbackMessage(error.message);
+                    handleFeedbackMessage(true, false, errors[field]);
+                });         
             } else {
                 setApiError("An error occurred, please try again.");
-                handleFeedbackMessage(apiError);
+                handleFeedbackMessage(true, false, apiError);
             }
         } finally {
             setIsLoading(false);
@@ -81,7 +81,7 @@ const RegistrationForm = ({ handleFeedbackMessage }) => {
                         onChange: () => clearErrors()
                     })}
 
-                    errorMessage={errors.userName?.message}
+                    errorMessage={errors.username?.message}
                 />
                 <InputField
                     label="Email"

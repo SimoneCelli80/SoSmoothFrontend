@@ -857,12 +857,6 @@ video {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
-.from-smoothWhite {
-  --tw-gradient-from: #FCF6E4 var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(252 246 228 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
 .from-smoothYellow {
   --tw-gradient-from: #EBCB74 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(235 203 116 / 0) var(--tw-gradient-to-position);
@@ -871,22 +865,6 @@ video {
 
 .to-smoothWhite {
   --tw-gradient-to: #FCF6E4 var(--tw-gradient-to-position);
-}
-
-.to-smoothBlue {
-  --tw-gradient-to: #8CB3C1 var(--tw-gradient-to-position);
-}
-
-.to-smoothGrey {
-  --tw-gradient-to: #3E586D var(--tw-gradient-to-position);
-}
-
-.to-gray-200 {
-  --tw-gradient-to: #e5e7eb var(--tw-gradient-to-position);
-}
-
-.to-smoothYellow {
-  --tw-gradient-to: #EBCB74 var(--tw-gradient-to-position);
 }
 
 .bg-clip-text {
@@ -926,12 +904,20 @@ video {
   padding: 2rem;
 }
 
+.pl-11rem {
+  padding-left: 11rem;
+}
+
 .pl-13\.5rem {
   padding-left: 13.5rem;
 }
 
 .pl-16 {
   padding-left: 4rem;
+}
+
+.pl-16\.5rem {
+  padding-left: 16.5rem;
 }
 
 .pl-4 {
